@@ -1,0 +1,130 @@
+/* ─── Immersive hero: full-screen WebGL planet + editorial type ─── */
+
+.hero-immersive,
+.hero-cinematic {
+  position: relative;
+  isolation: isolate;
+  min-height: min(82vh, 52rem);
+  min-height: min(82dvh, 52rem);
+  overflow: hidden;
+  color: var(--off-white);
+}
+
+.hero-immersive__canvas,
+.planet-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.planet-canvas canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.planet-canvas__fallback {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 55% at 62% 42%, #1a3340 0%, #030608 75%);
+}
+
+.hero-immersive__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(105deg, rgba(3, 6, 8, 0.88) 0%, rgba(3, 6, 8, 0.35) 42%, transparent 58%),
+    radial-gradient(ellipse 90% 70% at 50% 100%, rgba(3, 6, 8, 0.65) 0%, transparent 55%);
+}
+
+.hero-immersive__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  min-height: min(82vh, 52rem);
+  min-height: min(82dvh, 52rem);
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-top: clamp(4rem, 9vh, 5.5rem);
+  padding-bottom: clamp(3rem, 9vh, 5rem);
+}
+
+.hero-immersive__eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(176, 190, 197, 0.95);
+  margin-bottom: clamp(1rem, 2.5vw, 1.75rem);
+}
+
+.hero-immersive__headline {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  font-size: clamp(2.25rem, 7.5vw, 5rem);
+  max-width: 20ch;
+  text-transform: uppercase;
+}
+
+.hero-immersive__headline-line {
+  display: block;
+  overflow: hidden;
+}
+
+.hero-immersive__headline-inner {
+  display: block;
+}
+
+.hero-immersive__subline {
+  margin-top: clamp(1.25rem, 3vw, 2rem);
+  max-width: 28rem;
+  font-size: clamp(0.875rem, 1.5vw, 1rem);
+  line-height: 1.6;
+  color: rgba(249, 251, 249, 0.72);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 300;
+}
+
+.hero-immersive__scroll-hint {
+  position: absolute;
+  bottom: clamp(1.75rem, 5vh, 3rem);
+  left: 50%;
+  z-index: 3;
+  transform: translateX(-50%);
+  color: rgba(176, 190, 197, 0.9);
+}
+
+/* Legacy scroll hint line */
+.hero-cinematic__scroll-line {
+  width: 1px;
+  height: 3rem;
+  background: linear-gradient(to bottom, transparent, rgba(249, 251, 249, 0.5));
+  transform-origin: top center;
+  animation: hero-scroll-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes hero-scroll-pulse {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-cinematic__scroll-line {
+    animation: none !important;
+  }
+}

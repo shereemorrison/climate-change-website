@@ -1,0 +1,274 @@
+/* Atmosphere chapter */
+
+.atmo-section {
+  position: relative;
+  z-index: 10;
+  overflow: hidden;
+  padding-block: clamp(4rem, 10vh, 6.5rem);
+  background: var(--color-bg);
+}
+
+.atmo-section__glow {
+  position: absolute;
+  top: -20%;
+  right: -15%;
+  width: min(55vw, 32rem);
+  height: min(55vw, 32rem);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(143, 182, 154, 0.22) 0%, transparent 68%);
+  pointer-events: none;
+}
+
+.atmo-section__mesh {
+  position: absolute;
+  inset: 0;
+  opacity: 0.4;
+  background-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    color-mix(in srgb, var(--color-border) 40%, transparent) 100%
+  );
+  mask-image: linear-gradient(90deg, transparent, black 30%, black 70%, transparent);
+  pointer-events: none;
+}
+
+.atmo-section__grid {
+  display: grid;
+  gap: clamp(2.5rem, 6vw, 4rem);
+  align-items: start;
+}
+
+@media (min-width: 900px) {
+  .atmo-section__grid {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    align-items: end;
+    gap: clamp(3rem, 7vw, 5rem);
+  }
+}
+
+.atmo-section__eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+  margin-bottom: 1rem;
+}
+
+.atmo-section__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  color: var(--color-text);
+  max-width: 18ch;
+  margin-bottom: 1.5rem;
+}
+
+.atmo-section__body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+}
+
+.atmo-section__lede {
+  font-size: clamp(1.0625rem, 1.7vw, 1.1875rem);
+  line-height: 1.65;
+  color: var(--color-text);
+  max-width: 48ch;
+}
+
+.atmo-section__paragraph {
+  font-size: clamp(0.9375rem, 1.5vw, 1.0625rem);
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  max-width: 52ch;
+}
+
+.atmo-section__layers {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.atmo-layer {
+  position: relative;
+  padding: clamp(1.25rem, 3vw, 1.75rem) 0 clamp(1.25rem, 3vw, 1.75rem) 1.25rem;
+  border-left: 2px solid color-mix(in srgb, var(--color-accent-forest) 55%, transparent);
+  transition:
+    border-color 0.4s ease,
+    padding-left 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.atmo-layer:not(:last-child) {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.atmo-layer:hover {
+  padding-left: 1.5rem;
+  border-left-color: var(--color-accent-forest);
+}
+
+.atmo-layer__depth {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent-forest);
+  margin-bottom: 0.5rem;
+}
+
+.atmo-layer__name {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+}
+
+.atmo-layer__detail {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  max-width: 44ch;
+}
+
+/* Impact chapter */
+
+.impact-section {
+  position: relative;
+  z-index: 10;
+  padding-block: clamp(4rem, 10vh, 6rem);
+  background: var(--chapter-surface);
+}
+
+.impact-section__header {
+  width: 100%;
+  margin-bottom: clamp(2.5rem, 6vw, 3.5rem);
+}
+
+.impact-section__eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+  margin-bottom: 1rem;
+}
+
+.impact-section__title {
+  width: 100%;
+  max-width: none;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  font-size: clamp(1.75rem, 4.5vw, 3.25rem);
+  color: var(--color-text);
+}
+
+.impact-section__grid {
+  display: grid;
+  gap: 1.25rem;
+  perspective: 1200px;
+}
+
+@media (min-width: 900px) {
+  .impact-section__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+.impact-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 18rem;
+  padding: clamp(1.5rem, 3vw, 2rem);
+  border-radius: 1.25rem;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent);
+  background: var(--color-surface);
+  transition:
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.impact-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.85;
+  pointer-events: none;
+  transition: opacity 0.45s ease;
+}
+
+.impact-card--ocean::before {
+  background: linear-gradient(145deg, rgba(27, 58, 75, 0.12) 0%, transparent 55%);
+}
+
+.impact-card--forest::before {
+  background: linear-gradient(145deg, rgba(76, 175, 80, 0.14) 0%, transparent 55%);
+}
+
+.impact-card--ember::before {
+  background: linear-gradient(145deg, rgba(198, 120, 87, 0.16) 0%, transparent 55%);
+}
+
+.impact-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-elevated);
+}
+
+.impact-card:hover::before {
+  opacity: 1;
+}
+
+.impact-card__stat {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.impact-card__stat-value {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 5vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+}
+
+.impact-card__stat-label {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--color-text-subtle);
+  max-width: 22ch;
+}
+
+.impact-card__title {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  color: var(--color-text);
+  margin-top: auto;
+}
+
+.impact-card__description {
+  position: relative;
+  z-index: 1;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--color-text-muted);
+}
