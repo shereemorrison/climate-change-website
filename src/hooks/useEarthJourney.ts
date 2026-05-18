@@ -17,13 +17,28 @@ const ANCHOR_X: Record<EarthAnchor, number> = {
   right: 0.78,
 };
 
-const BASE_OPACITY = 0.38;
-const HERO_OPACITY = 0.58;
+const BASE_OPACITY = 0.52;
+const HERO_OPACITY = 0.68;
 const SCALE_REFERENCE = 1.05;
 const DEFAULT_CAMERA_Z = 8;
 const DIVE_CAMERA_Z = 3.35;
+const MOBILE_MAX_WIDTH = 768;
 
 type Waypoint = { x: number; y: number; scale: number };
+
+function isMobileViewport(): boolean {
+  return typeof window !== "undefined" && window.innerWidth < MOBILE_MAX_WIDTH;
+}
+
+/** Pull the globe inward on narrow screens so it stays in frame */
+function adjustWaypoint(wp: Waypoint): Waypoint {
+  if (!isMobileViewport()) return wp;
+  return {
+    x: lerp(wp.x, 50, 0.42),
+    y: wp.y,
+    scale: Math.min(wp.scale * 1.06, 1.14),
+  };
+}
 
 function smoothstep(t: number) {
   return t * t * (3 - 2 * t);
@@ -74,23 +89,24 @@ function interpolateWaypoints(waypoints: Waypoint[], progress: number): Waypoint
     (Math.sin(progress * Math.PI * 2.4) * 5 + Math.cos(progress * Math.PI * 1.6) * 3);
   const driftY = driftMix * Math.sin(progress * Math.PI * 3.1 + 0.6) * 4;
 
-  return { x: x + driftX, y: y + driftY, scale };
+  return adjustWaypoint({ x: x + driftX, y: y + driftY, scale });
 }
 
 function journeyOpacity(progress: number): number {
-  const fadeOut = progress > 0.98 ? 1 - (progress - 0.98) / 0.02 : 1;
-  const heroBlend = progress < 0.1 ? 1 - progress / 0.1 : 0;
+  const fadeOut = progress > 0.985 ? 1 - (progress - 0.985) / 0.015 : 1;
+  const heroBlend = progress < 0.12 ? 1 - progress / 0.12 : 0;
   const opacity = BASE_OPACITY + (HERO_OPACITY - BASE_OPACITY) * heroBlend;
   return opacity * fadeOut;
 }
 
 function scaleToSizePx(scale: number): number {
-  const viewportCap =
-    typeof window !== "undefined"
-      ? Math.min(window.innerWidth * 0.72, 760)
-      : 520;
+  if (typeof window === "undefined") return 520;
+  const w = window.innerWidth;
+  const mobile = w < MOBILE_MAX_WIDTH;
+  const viewportCap = mobile ? Math.min(w * 0.88, 520) : Math.min(w * 0.72, 760);
+  const minSize = mobile ? 200 : 260;
   const normalized = scale / SCALE_REFERENCE;
-  return Math.max(260, viewportCap * normalized);
+  return Math.max(minSize, viewportCap * normalized);
 }
 
 function sectionToWaypoint(section: HTMLElement): Waypoint {

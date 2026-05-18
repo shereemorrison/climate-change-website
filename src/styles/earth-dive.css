@@ -176,6 +176,47 @@
   text-shadow: 0 1px 6px color-mix(in srgb, var(--color-bg) 70%, transparent);
 }
 
+@media (max-width: 767px) {
+  .earth-dive__content {
+    padding: clamp(6vh, 10%, 11%) 0.875rem 1.25rem;
+  }
+
+  .earth-dive__title {
+    font-size: clamp(1.5rem, 7.5vw, 2rem);
+    max-width: 100%;
+  }
+
+  .earth-dive__facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+    min-height: auto;
+    flex: 1;
+    align-content: start;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    max-height: min(46vh, 20rem);
+  }
+
+  .earth-dive__facts .earth-fact {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    width: 100% !important;
+    max-width: none !important;
+    padding: 0.6rem 0.75rem;
+    transform: scale(var(--fact-scale, 1)) !important;
+  }
+
+  .earth-dive__facts .earth-fact__value {
+    font-size: clamp(1.1rem, 4.5vw, 1.35rem);
+  }
+
+  .earth-dive__facts .earth-fact__label {
+    font-size: 0.625rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .earth-dive__pin {
     min-height: 70vh;

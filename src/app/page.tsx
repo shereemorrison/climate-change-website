@@ -35,7 +35,10 @@ export default function Home() {
       <JourneyMain>
         <HeroSection />
 
-        <ScrollMarquee items={MARQUEE_SIGNALS} className="scroll-marquee--signals" />
+        <ScrollMarquee
+          items={MARQUEE_SIGNALS}
+          className="scroll-marquee--signals scroll-marquee--journey"
+        />
 
         <TemperatureStorySection />
         <AtmosphereSection />
@@ -43,7 +46,10 @@ export default function Home() {
         <EarthDiveTransition />
         <SolutionsSection />
 
-        <ScrollMarquee items={MARQUEE_HOPE} className="scroll-marquee--hope" />
+        <ScrollMarquee
+          items={MARQUEE_HOPE}
+          className="scroll-marquee--hope scroll-marquee--journey"
+        />
       </JourneyMain>
       <Footer />
     </SiteShell>

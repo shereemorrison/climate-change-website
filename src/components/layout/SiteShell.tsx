@@ -15,7 +15,7 @@ export function SiteShell({ children, className }: SiteShellProps) {
       )}
     >
       <GrainOverlay />
-      <div className="relative z-10">{children}</div>
+      <div className="relative">{children}</div>
     </div>
   );
 }

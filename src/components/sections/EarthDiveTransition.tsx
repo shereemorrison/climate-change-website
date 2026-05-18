@@ -68,6 +68,7 @@ export function EarthDiveTransition() {
                     {
                       "--fact-x": `${fact.x}%`,
                       "--fact-y": `${fact.y}%`,
+                      "--fact-scale": motion.scale,
                       opacity: motion.opacity,
                       transform: factTransform(fact.align, motion.y, motion.scale),
                       filter: `blur(${motion.blur}px)`,
