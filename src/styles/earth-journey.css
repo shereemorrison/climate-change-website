@@ -1,4 +1,4 @@
-/* Fixed Earth — atmospheric backdrop, behind all copy */
+/* Fixed Earth — atmospheric backdrop behind chapter copy (solutions-style) */
 
 .journey-main {
   position: relative;
@@ -12,7 +12,7 @@
   top: 48%;
   width: min(72vw, 42rem);
   height: min(72vw, 42rem);
-  opacity: 0.55;
+  opacity: 0.52;
   pointer-events: none;
   will-change: left, top, width, height, opacity;
 }
@@ -39,7 +39,7 @@
   background: transparent !important;
 }
 
-/* Journey sections and copy always above the globe */
+/* Sections and copy above the globe */
 .journey-section,
 .hero-immersive {
   position: relative;
@@ -47,15 +47,18 @@
   background: transparent !important;
 }
 
-.journey-section > *,
-.hero-immersive__content,
+.hero-atmosphere,
 .hero-immersive__overlay,
-.hero-atmosphere {
+.parallax-layers,
+.atmo-section__glow,
+.atmo-section__mesh,
+.solutions-section__glow {
   position: relative;
-  z-index: 1;
+  z-index: 0;
 }
 
 .hero-immersive__content {
+  position: relative;
   z-index: 2;
 }
 
@@ -64,10 +67,6 @@
 .journey-section.impact-section,
 .journey-section.solutions-section {
   background: transparent !important;
-}
-
-.journey-section.solutions-section .solution-card {
-  background: color-mix(in srgb, var(--color-surface) 92%, transparent);
 }
 
 /* Split headline reveals */
@@ -85,41 +84,45 @@
   display: block;
 }
 
-/* Marquees between chapters — translucent so the globe stays visible */
+/* Marquees — translucent so the globe shows through */
 #main-content .scroll-marquee--journey {
   position: relative;
   z-index: 10;
-  background: color-mix(in srgb, var(--color-bg) 55%, transparent);
+  background: color-mix(in srgb, var(--color-bg) 45%, transparent);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
 
 #main-content .scroll-marquee--signals.scroll-marquee--journey {
-  background: color-mix(in srgb, var(--color-bg-muted) 50%, transparent);
+  background: color-mix(in srgb, var(--color-bg-muted) 40%, transparent);
 }
 
 #main-content .scroll-marquee--hope.scroll-marquee--journey {
-  background: color-mix(in srgb, var(--solutions-bg) 52%, transparent);
+  background: color-mix(in srgb, var(--solutions-bg) 42%, transparent);
 }
 
 @media (max-width: 767px) {
-  .scrolling-earth {
-    left: 50%;
-    width: min(88vw, 22rem);
-    height: min(88vw, 22rem);
+  .hero-immersive {
+    min-height: min(80dvh, 42rem);
+  }
+
+  .hero-immersive__content {
+    min-height: min(80dvh, 42rem);
+    padding-top: 4.5rem;
+    padding-bottom: clamp(2rem, 6vh, 3rem);
   }
 
   .hero-immersive__overlay {
     background: linear-gradient(
       180deg,
-      color-mix(in srgb, var(--color-bg) 94%, transparent) 0%,
-      color-mix(in srgb, var(--color-bg) 50%, transparent) 38%,
-      transparent 62%
+      color-mix(in srgb, var(--color-bg) 82%, transparent) 0%,
+      color-mix(in srgb, var(--color-bg) 35%, transparent) 32%,
+      transparent 55%
     );
   }
 
   .hero-atmosphere__wash {
-    mask-image: linear-gradient(180deg, black 0%, transparent 58%);
+    mask-image: linear-gradient(180deg, black 0%, transparent 52%);
   }
 
   .story-section__grid {

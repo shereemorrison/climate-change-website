@@ -73,9 +73,10 @@
   position: relative;
   padding: clamp(1.25rem, 3vw, 2rem);
   border-radius: 1.25rem;
-  border: 1px solid var(--color-border);
-  background: color-mix(in srgb, var(--color-surface) 88%, transparent);
-  backdrop-filter: blur(12px);
+  border: 1px solid var(--tile-border);
+  background: var(--tile-bg-strong);
+  backdrop-filter: blur(var(--tile-blur));
+  -webkit-backdrop-filter: blur(var(--tile-blur));
   box-shadow: var(--shadow-soft);
 }
 
@@ -129,12 +130,14 @@
   padding: 1.5rem 1.5rem 1.25rem;
   border-radius: 1.125rem;
   overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--color-border) 80%, transparent);
+  border: 1px solid var(--tile-border);
   background: linear-gradient(
     165deg,
-    color-mix(in srgb, var(--color-surface) 96%, white) 0%,
-    color-mix(in srgb, var(--color-surface) 88%, transparent) 100%
+    var(--tile-bg-strong) 0%,
+    var(--tile-bg) 100%
   );
+  backdrop-filter: blur(var(--tile-blur));
+  -webkit-backdrop-filter: blur(var(--tile-blur));
   box-shadow: var(--shadow-soft);
   transition:
     transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),

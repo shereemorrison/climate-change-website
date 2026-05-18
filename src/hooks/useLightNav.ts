@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 import { useTheme } from "@/hooks/useTheme";
 
-/** Light nav text over dark cinematic surfaces (hero; earth-dive in dark theme). */
+/** Light-colored nav text only on dark surfaces (dark-theme hero / earth-dive). */
 export function useLightNav(): boolean {
   const { theme } = useTheme();
-  const [useLight, setUseLight] = useState(true);
+  const [useLight, setUseLight] = useState(false);
 
   useEffect(() => {
     const update = () => {
@@ -14,6 +14,11 @@ export function useLightNav(): boolean {
       const vh = window.innerHeight;
 
       const hero = document.getElementById("hero");
+      if (theme === "light" && hero && y < hero.offsetTop + hero.offsetHeight * 0.88) {
+        setUseLight(false);
+        return;
+      }
+
       if (hero && y < hero.offsetTop + hero.offsetHeight * 0.88) {
         setUseLight(true);
         return;
