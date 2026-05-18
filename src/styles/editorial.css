@@ -1,0 +1,232 @@
+/* ─── Editorial climate data chapter (hero → light) ─── */
+
+.story-section {
+  position: relative;
+  z-index: 10;
+  overflow: hidden;
+  margin-top: clamp(-4.5rem, -11vh, -6rem);
+  padding-top: clamp(4.5rem, 11vh, 6.5rem);
+  background: var(--gradient-editorial);
+}
+
+.story-section__grid {
+  display: grid;
+  gap: clamp(2rem, 5vw, 3.5rem);
+  align-items: center;
+  padding-block: clamp(4rem, 10vh, 6rem);
+}
+
+.story-section__eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+  margin-bottom: 1rem;
+}
+
+.story-section__headline {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  color: var(--color-text);
+  max-width: 14ch;
+  margin-bottom: 1.25rem;
+}
+
+.story-section__lede {
+  font-size: clamp(1.0625rem, 1.8vw, 1.1875rem);
+  line-height: 1.65;
+  color: var(--color-text-muted);
+  max-width: 38ch;
+  margin-bottom: 2rem;
+}
+
+.story-section__hero-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.story-section__stat-value {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 5rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--color-accent-forest);
+}
+
+.story-section__stat-label {
+  font-size: 0.875rem;
+  color: var(--color-text-subtle);
+  max-width: 22ch;
+}
+
+.story-section__viz {
+  position: relative;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border-radius: 1.25rem;
+  border: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-surface) 88%, transparent);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-soft);
+}
+
+.temperature-chart__svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.temperature-chart__label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  fill: var(--color-text-subtle);
+}
+
+.temperature-chart__caption {
+  margin-top: 0.75rem;
+  font-size: 0.75rem;
+  color: var(--color-text-subtle);
+}
+
+.story-section__cards {
+  display: grid;
+  gap: 1rem;
+  padding-bottom: clamp(3rem, 8vh, 5rem);
+}
+
+@media (min-width: 768px) {
+  .story-section__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  }
+
+  .story-section__cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .story-section__cards {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.story-card {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 0.5rem;
+  min-height: 11rem;
+  padding: 1.5rem 1.5rem 1.25rem;
+  border-radius: 1.125rem;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--color-border) 80%, transparent);
+  background: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--color-surface) 96%, white) 0%,
+    color-mix(in srgb, var(--color-surface) 88%, transparent) 100%
+  );
+  box-shadow: var(--shadow-soft);
+  transition:
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.4s ease;
+}
+
+.story-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--color-accent-forest),
+    color-mix(in srgb, var(--color-accent-teal) 40%, transparent)
+  );
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.story-card:hover {
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: var(--shadow-elevated);
+  border-color: color-mix(in srgb, var(--color-accent-forest) 35%, var(--color-border));
+}
+
+.story-card:hover::before {
+  transform: scaleX(1);
+}
+
+.story-card__index {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent-forest);
+}
+
+.story-card__value {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+}
+
+.story-card__value-unit {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-text-muted);
+}
+
+.story-card__label {
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--color-text-muted);
+}
+
+.story-card__source {
+  font-size: 0.625rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+  margin-top: 0.25rem;
+}
+
+/* Parallax fog layers */
+.parallax-layers__fog--a {
+  position: absolute;
+  top: -20%;
+  left: -10%;
+  width: 70%;
+  height: 60%;
+  background: radial-gradient(circle, rgba(143, 182, 154, 0.14) 0%, transparent 70%);
+}
+
+.parallax-layers__fog--b {
+  position: absolute;
+  bottom: -10%;
+  right: -5%;
+  width: 55%;
+  height: 50%;
+  background: radial-gradient(circle, rgba(179, 212, 252, 0.12) 0%, transparent 72%);
+}
+
+.parallax-layers__glow {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 80%;
+  height: 40%;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.5) 0%, transparent 65%);
+}

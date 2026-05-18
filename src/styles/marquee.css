@@ -1,0 +1,110 @@
+/* ─── Scroll-velocity marquees ─── */
+
+.scroll-marquee {
+  overflow: hidden;
+  width: 100%;
+  border-block: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+.scroll-marquee--dark {
+  background: #060c10;
+  border-color: rgba(255, 255, 255, 0.06);
+  color: rgba(249, 251, 249, 0.75);
+}
+
+.scroll-marquee--hope {
+  background: var(--solutions-bg);
+  border-color: rgba(46, 125, 50, 0.12);
+  color: var(--solutions-text-muted);
+}
+
+.scroll-marquee__track {
+  display: flex;
+  width: max-content;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.scroll-marquee__item {
+  display: inline-flex;
+  align-items: center;
+  padding-inline: clamp(1.5rem, 4vw, 3rem);
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.scroll-marquee__dot {
+  margin-left: clamp(1.5rem, 4vw, 3rem);
+  font-size: 0.45em;
+  opacity: 0.45;
+  color: var(--color-accent);
+}
+
+.scroll-marquee--hope .scroll-marquee__dot {
+  color: var(--solutions-accent);
+}
+
+.scroll-marquee__static-text {
+  padding: 1.25rem 1.5rem;
+  text-align: center;
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Scrub headlines — tall band, readable size, full horizontal travel */
+.scrub-headlines-section {
+  position: relative;
+  min-height: 85vh;
+  background: var(--color-bg);
+  border-block: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+.scrub-headlines {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(1.25rem, 3.5vh, 2.25rem);
+  min-height: 75vh;
+  padding-block: clamp(4rem, 12vh, 8rem);
+  padding-inline: clamp(1.25rem, 5vw, 3rem);
+}
+
+.scrub-headlines__line {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4.2vw, 3.25rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  text-transform: uppercase;
+  white-space: nowrap;
+  will-change: transform;
+  color: color-mix(in srgb, var(--color-text) 42%, transparent);
+}
+
+.scrub-headlines__line--accent {
+  color: var(--color-accent-forest);
+}
+
+.scrub-headlines-section__caption {
+  position: absolute;
+  bottom: clamp(1.5rem, 4vh, 2.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(90%, 28rem);
+  text-align: center;
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+  color: var(--color-text-subtle);
+}
+
+@media (max-width: 640px) {
+  .scrub-headlines__line {
+    font-size: clamp(1.35rem, 7vw, 1.75rem);
+  }
+}

@@ -1,0 +1,190 @@
+/* Pinned immersive Earth (full-viewport WebGL) */
+
+.earth-immersive {
+  position: relative;
+  background: #030608;
+}
+
+.earth-immersive__stage {
+  position: relative;
+  height: 100vh;
+  height: 100dvh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.earth-immersive__canvas {
+  position: absolute !important;
+  inset: 0;
+  z-index: 0;
+}
+
+.earth-immersive__fallback {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 55% 50% at 50% 52%, #1a3340 0%, #030608 72%);
+}
+
+.earth-immersive__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 50% 48% at 50% 52%,
+    transparent 0%,
+    rgba(3, 6, 8, 0.45) 100%
+  );
+}
+
+.earth-immersive__vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 100% 90% at 50% 50%,
+    transparent 30%,
+    rgba(3, 6, 8, 0.5) 100%
+  );
+}
+
+.earth-immersive__exit {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 2;
+  height: clamp(6rem, 16vh, 10rem);
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, var(--solutions-bg));
+}
+
+.earth-immersive__content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  min-height: 100vh;
+  min-height: 100dvh;
+  align-items: center;
+  justify-content: center;
+  padding-block: clamp(3rem, 8vh, 5rem);
+  pointer-events: none;
+}
+
+.earth-immersive__scene {
+  position: relative;
+  width: 100%;
+  min-height: min(88vh, 40rem);
+  min-height: min(88dvh, 40rem);
+}
+
+.earth-immersive__intro {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 2;
+  width: min(100%, 34rem);
+  text-align: center;
+}
+
+.earth-immersive__facts-scatter {
+  position: absolute;
+  inset: clamp(6.5rem, 20vh, 10rem) 0 0 0;
+  z-index: 1;
+}
+
+.earth-fact {
+  position: absolute;
+  left: var(--fact-x);
+  top: var(--fact-y);
+  width: min(10rem, 26vw);
+  max-width: 11.5rem;
+  padding: 0.5rem 0.7rem;
+  border-radius: 0.5rem;
+  background: rgba(3, 6, 8, 0.62);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(176, 190, 197, 0.22);
+  transition:
+    border-color 0.4s ease,
+    opacity 0.4s ease;
+}
+
+.earth-fact--align-start {
+  text-align: left;
+}
+
+.earth-fact--align-end {
+  text-align: right;
+}
+
+.earth-fact--align-center {
+  text-align: center;
+}
+
+.earth-fact--visible {
+  border-color: rgba(129, 199, 132, 0.5);
+}
+
+.earth-fact__value {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2vw, 1.55rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: #f9fbf9;
+  margin-bottom: 0.25rem;
+}
+
+.earth-fact__label {
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  color: rgba(249, 251, 249, 0.72);
+}
+
+.earth-immersive__eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(176, 190, 197, 0.95);
+  margin-bottom: 0.75rem;
+}
+
+.earth-immersive__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  font-size: clamp(1.75rem, 4.5vw, 3.25rem);
+  text-transform: uppercase;
+  color: #f9fbf9;
+  margin-bottom: 0.75rem;
+}
+
+.earth-immersive__description {
+  font-size: clamp(0.875rem, 1.5vw, 1rem);
+  line-height: 1.6;
+  color: rgba(249, 251, 249, 0.65);
+}
+
+@media (max-width: 699px) {
+  .earth-fact {
+    width: min(8.5rem, 40vw);
+    padding: 0.4rem 0.55rem;
+  }
+
+  .earth-fact__value {
+    font-size: 1.1rem;
+  }
+
+  .earth-fact__label {
+    font-size: 0.625rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .earth-immersive__stage {
+    position: relative;
+    min-height: 100vh;
+  }
+}
