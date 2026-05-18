@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useTheme } from "@/hooks/useTheme";
 
-/** Light nav text over dark cinematic surfaces (hero; earth & NASA only in dark theme). */
+/** Light nav text over dark cinematic surfaces (hero; earth-dive in dark theme). */
 export function useLightNav(): boolean {
   const { theme } = useTheme();
   const [useLight, setUseLight] = useState(true);
@@ -20,7 +20,7 @@ export function useLightNav(): boolean {
       }
 
       if (theme === "dark") {
-        for (const id of ["earth", "nasa"]) {
+        for (const id of ["earth-dive"]) {
           const el = document.getElementById(id);
           if (!el) continue;
           const rect = el.getBoundingClientRect();

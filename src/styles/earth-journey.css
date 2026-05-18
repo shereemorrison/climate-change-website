@@ -1,0 +1,81 @@
+/* Fixed Earth — atmospheric backdrop, behind all copy */
+
+.scrolling-earth {
+  position: fixed;
+  z-index: 2;
+  left: 78%;
+  top: 48%;
+  width: min(72vw, 42rem);
+  height: min(72vw, 42rem);
+  opacity: 0.58;
+  pointer-events: none;
+  will-change: left, top, width, height, opacity;
+}
+
+.scrolling-earth__viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1;
+}
+
+.planet-canvas.scrolling-earth__canvas {
+  position: absolute !important;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  background: transparent !important;
+}
+
+.planet-canvas.scrolling-earth__canvas canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  background: transparent !important;
+}
+
+/* Journey sections and copy always above the globe */
+.journey-section,
+.hero-immersive {
+  position: relative;
+  z-index: 10;
+  background: transparent !important;
+}
+
+.journey-section > *,
+.hero-immersive__content,
+.hero-immersive__overlay,
+.hero-atmosphere {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-immersive__content {
+  z-index: 2;
+}
+
+.journey-section.story-section,
+.journey-section.atmo-section,
+.journey-section.impact-section,
+.journey-section.solutions-section {
+  background: transparent !important;
+}
+
+.journey-section.solutions-section .solution-card {
+  background: color-mix(in srgb, var(--color-surface) 92%, transparent);
+}
+
+/* Split headline reveals */
+.text-split {
+  display: block;
+  line-height: 0.95;
+}
+
+.text-split__line {
+  display: block;
+  overflow: hidden;
+}
+
+.text-split__inner {
+  display: block;
+}

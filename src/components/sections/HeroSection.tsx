@@ -1,11 +1,11 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { LazyPlanetCanvas } from "@/components/planet/LazyPlanetCanvas";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { useRef } from "react";
+import { gsap } from "@/lib/gsap";
 import { useGSAP } from "@/hooks/useGSAP";
 import { Container } from "@/components/layout/Container";
 import { ScrollHint } from "@/components/sections/hero/ScrollHint";
+import { HeroAtmosphere } from "@/components/sections/hero/HeroAtmosphere";
 import { PAGE_CONTAINER } from "@/lib/constants";
 
 const HEADLINE_LINES = ["The planet", "is changing faster", "than we are."];
@@ -13,7 +13,6 @@ const HEADLINE_LINES = ["The planet", "is changing faster", "than we are."];
 export function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const [planetProgress, setPlanetProgress] = useState(0);
 
   useGSAP(
     () => {
@@ -29,53 +28,23 @@ export function HeroSection() {
       intro.fromTo(sectionRef.current, { opacity: 0 }, { opacity: 1, duration: 0.6 }, 0);
 
       if (eyebrow) {
-        intro.fromTo(eyebrow, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1 }, 0.35);
+        intro.fromTo(eyebrow, { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: 0.95 }, 0.3);
       }
 
       intro.fromTo(
         headlineInners,
-        { yPercent: 120, opacity: 0 },
-        { yPercent: 0, opacity: 1, duration: 1.35, stagger: 0.12 },
-        0.5,
+        { yPercent: 115, opacity: 0 },
+        { yPercent: 0, opacity: 1, duration: 1.25, stagger: 0.11 },
+        0.45,
       );
 
       if (subline) {
-        intro.fromTo(subline, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1 }, 1);
+        intro.fromTo(subline, { y: 32, opacity: 0 }, { y: 0, opacity: 1, duration: 1 }, 0.95);
       }
 
       if (scrollHint) {
-        intro.fromTo(scrollHint, { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9 }, 1.25);
+        intro.fromTo(scrollHint, { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.85 }, 1.15);
       }
-
-      gsap.to(contentRef.current, {
-        y: 80,
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: 1.2,
-        },
-      });
-
-      gsap.to(contentRef.current, {
-        opacity: 0,
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "55% top",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
-
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: "top top",
-        end: "bottom top",
-        scrub: 1,
-        onUpdate: (self) => setPlanetProgress(self.progress),
-      });
     },
     { scope: sectionRef },
   );
@@ -85,20 +54,13 @@ export function HeroSection() {
       ref={sectionRef}
       id="hero"
       className="hero-immersive"
+      data-earth-anchor="right"
+      data-earth-x="78"
+      data-earth-y="48"
+      data-earth-scale="1.12"
       aria-labelledby="hero-heading"
     >
-      <LazyPlanetCanvas
-        scrollProgress={planetProgress}
-        enableIntro={false}
-        showStars
-        planetScale={1.05}
-        cameraZ={6.6}
-        cameraX={0.35}
-        scrollTurns={1.15}
-        idleSpeed={0.022}
-        className="hero-immersive__canvas"
-      />
-
+      <HeroAtmosphere />
       <div className="hero-immersive__overlay" aria-hidden />
 
       <Container width={PAGE_CONTAINER} className="hero-immersive__content">
@@ -118,7 +80,8 @@ export function HeroSection() {
           </h1>
 
           <p className="hero-immersive__subline" data-hero-subline>
-            A cinematic journey through the signals of a warming world.
+            A cinematic journey through the signals of a warming world — measured in data,
+            felt in landscapes, understood through time.
           </p>
         </div>
       </Container>

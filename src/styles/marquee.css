@@ -7,10 +7,16 @@
   background: var(--color-bg);
 }
 
+.scroll-marquee--signals {
+  background: var(--color-bg-muted);
+  border-color: var(--color-border);
+  color: var(--color-text-muted);
+}
+
 .scroll-marquee--dark {
-  background: #060c10;
-  border-color: rgba(255, 255, 255, 0.06);
-  color: rgba(249, 251, 249, 0.75);
+  background: var(--color-bg-muted);
+  border-color: var(--color-border);
+  color: var(--color-text-muted);
 }
 
 .scroll-marquee--hope {
