@@ -4,7 +4,10 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { TemperatureStorySection } from "@/components/sections/TemperatureStorySection";
+import { LiveSignalsSection } from "@/components/sections/LiveSignalsSection";
+import { GlobalDataSection } from "@/components/sections/GlobalDataSection";
 import { AtmosphereSection } from "@/components/sections/AtmosphereSection";
+import { NasaEarthSection } from "@/components/sections/NasaEarthSection";
 import { ImpactSection } from "@/components/sections/ImpactSection";
 import { EarthSection } from "@/components/sections/EarthSection";
 import { SolutionsSection } from "@/components/sections/SolutionsSection";
@@ -38,8 +41,13 @@ export default function Home() {
 
         <TemperatureStorySection />
 
+        <LiveSignalsSection />
+        <GlobalDataSection />
+
         <AtmosphereSection />
         <ImpactSection />
+
+        <NasaEarthSection />
         <EarthSection />
         <SolutionsSection />
 

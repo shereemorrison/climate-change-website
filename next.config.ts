@@ -10,6 +10,15 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: projectRoot,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "epic1.gsfc.nasa.gov",
+        pathname: "/archive/natural/**",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

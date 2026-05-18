@@ -1,34 +1,4 @@
-/* ─── Atmospheric depth & motion (GPU-friendly: transform + opacity) ─── */
-
-@keyframes fog-drift-a {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-  50% {
-    transform: translate(3%, 2%) scale(1.04);
-  }
-}
-
-@keyframes fog-drift-b {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1.02);
-  }
-  50% {
-    transform: translate(-2%, 3%) scale(1);
-  }
-}
-
-@keyframes light-breathe {
-  0%,
-  100% {
-    opacity: 0.35;
-  }
-  50% {
-    opacity: 0.55;
-  }
-}
+/* ─── Atmospheric overlays (grain, scroll progress, navbar) ─── */
 
 @keyframes grain-shift {
   0%,
@@ -44,82 +14,6 @@
   75% {
     transform: translate(2%, -2%);
   }
-}
-
-.atmosphere-layer {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.atmosphere-fog-a {
-  background: radial-gradient(
-    ellipse 70% 50% at 20% 30%,
-    rgba(102, 187, 106, 0.12) 0%,
-    transparent 65%
-  );
-  animation: fog-drift-a 28s ease-in-out infinite;
-  will-change: transform;
-}
-
-.atmosphere-fog-b {
-  background: radial-gradient(
-    ellipse 60% 45% at 75% 60%,
-    rgba(27, 58, 75, 0.08) 0%,
-    transparent 70%
-  );
-  animation: fog-drift-b 34s ease-in-out infinite;
-  will-change: transform;
-}
-
-[data-theme="dark"] .atmosphere-fog-a {
-  background: radial-gradient(
-    ellipse 70% 50% at 25% 25%,
-    rgba(102, 187, 106, 0.1) 0%,
-    transparent 65%
-  );
-}
-
-[data-theme="dark"] .atmosphere-fog-b {
-  background: radial-gradient(
-    ellipse 55% 40% at 80% 55%,
-    rgba(129, 199, 132, 0.06) 0%,
-    transparent 70%
-  );
-}
-
-.atmosphere-light {
-  background: radial-gradient(
-    ellipse 90% 60% at 50% -10%,
-    rgba(232, 245, 233, 0.5) 0%,
-    transparent 55%
-  );
-  animation: light-breathe 12s ease-in-out infinite;
-}
-
-[data-theme="dark"] .atmosphere-light {
-  background: radial-gradient(
-    ellipse 80% 50% at 50% 0%,
-    rgba(102, 187, 106, 0.08) 0%,
-    transparent 50%
-  );
-}
-
-.atmosphere-vignette {
-  background: radial-gradient(
-    ellipse 120% 80% at 50% 50%,
-    transparent 40%,
-    rgba(27, 58, 75, 0.04) 100%
-  );
-}
-
-[data-theme="dark"] .atmosphere-vignette {
-  background: radial-gradient(
-    ellipse 100% 70% at 50% 50%,
-    transparent 30%,
-    rgba(0, 0, 0, 0.35) 100%
-  );
 }
 
 /* Film grain */
@@ -140,9 +34,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .atmosphere-fog-a,
-  .atmosphere-fog-b,
-  .atmosphere-light,
   .grain-overlay {
     animation: none !important;
   }

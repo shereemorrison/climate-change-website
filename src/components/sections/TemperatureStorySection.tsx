@@ -11,9 +11,18 @@ import { PAGE_CONTAINER } from "@/lib/constants";
 import { climateStats } from "@/data/climate-stats";
 import { GSAP_EASE, STAGGER } from "@/lib/motion";
 import { cn } from "@/utils/cn";
+import { temperatureSourceLabel } from "@/lib/climate-api/labels";
+import { useClimateData } from "@/hooks/climate/useClimateData";
+import type { TemperaturePoint } from "@/lib/climate-api/types";
+
+type TemperatureApiData = {
+  series: TemperaturePoint[];
+  caption: string;
+};
 
 export function TemperatureStorySection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const { data, source, loading } = useClimateData<TemperatureApiData>("temperature");
 
   useGSAP(
     () => {
@@ -96,7 +105,16 @@ export function TemperatureStorySection() {
           </div>
 
           <div className="story-section__viz" data-story-reveal>
-            <TemperatureChart />
+            <TemperatureChart
+              series={data?.series}
+              caption={data?.caption}
+              loading={loading}
+            />
+            {source && !loading && (
+              <p className="story-section__api-source">
+                {temperatureSourceLabel(source)}
+              </p>
+            )}
           </div>
         </div>
 

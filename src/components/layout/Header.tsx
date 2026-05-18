@@ -44,6 +44,12 @@ export function Header() {
           <NavLink href="#story" light={lightNav}>
             Story
           </NavLink>
+          <NavLink href="#live" light={lightNav}>
+            Live
+          </NavLink>
+          <NavLink href="#data" light={lightNav}>
+            Data
+          </NavLink>
           <NavLink href="#impact" light={lightNav}>
             Impact
           </NavLink>

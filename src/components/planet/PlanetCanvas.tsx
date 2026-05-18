@@ -2,8 +2,9 @@
 
 import { Canvas } from "@react-three/fiber";
 import { Suspense, useEffect, useRef, useState } from "react";
-import { PlanetStage } from "@/components/three/planet/PlanetStage";
+import { PlanetStage } from "@/components/planet/PlanetStage";
 import { useDeviceGraphicsProfile } from "@/hooks/planet/useDeviceGraphicsProfile";
+import type { Theme } from "@/hooks/useTheme";
 import { cn } from "@/utils/cn";
 
 type PlanetCanvasProps = {
@@ -17,6 +18,8 @@ type PlanetCanvasProps = {
   cameraX?: number;
   scrollTurns?: number;
   idleSpeed?: number;
+  /** Scene backdrop — hero stays dark; earth section follows site theme */
+  tone?: Theme;
 };
 
 export function PlanetCanvas({
@@ -29,6 +32,7 @@ export function PlanetCanvas({
   cameraX = 0.35,
   scrollTurns,
   idleSpeed,
+  tone = "dark",
 }: PlanetCanvasProps) {
   const { dpr, isMobile } = useDeviceGraphicsProfile();
   const rootRef = useRef<HTMLDivElement>(null);
@@ -66,6 +70,7 @@ export function PlanetCanvas({
             enableIntro={enableIntro}
             scrollTurns={scrollTurns}
             idleSpeed={idleSpeed}
+            tone={tone}
           />
         </Canvas>
       </Suspense>

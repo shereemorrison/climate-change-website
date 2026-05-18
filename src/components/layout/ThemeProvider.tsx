@@ -2,11 +2,8 @@
 
 import { useEffect } from "react";
 import { ScrollTrigger } from "@/lib/gsap";
-import { useTheme, type Theme } from "@/hooks/useTheme";
-
-function applyTheme(theme: Theme) {
-  document.documentElement.setAttribute("data-theme", theme);
-}
+import { applyTheme } from "@/lib/theme";
+import { useTheme } from "@/hooks/useTheme";
 
 type ThemeProviderProps = {
   children: React.ReactNode;

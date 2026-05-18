@@ -86,6 +86,19 @@
   --solutions-text-muted: #4f6358;
   --solutions-text-subtle: #6b8074;
   --solutions-accent: #2e7d32;
+
+  /* Immersive sections (One planet, NASA) */
+  --nasa-section-bg: var(--color-bg-muted);
+  --immersive-bg: #eef4f1;
+  --immersive-canvas: #e4ebe6;
+  --immersive-fog: #dfece6;
+  --immersive-fallback-mid: #c5ddd4;
+  --immersive-fallback-outer: #eef4f1;
+  --immersive-overlay-outer: rgba(238, 244, 241, 0.55);
+  --immersive-vignette-outer: rgba(223, 236, 230, 0.6);
+  --immersive-fact-bg: rgba(255, 255, 255, 0.88);
+  --immersive-fact-border: color-mix(in srgb, var(--color-border-strong) 65%, transparent);
+  --immersive-fact-border-active: color-mix(in srgb, var(--color-accent) 50%, transparent);
 }
 
 /* ─── Dark theme (midnight teal + forest accents) ─── */
@@ -157,4 +170,16 @@
   --solutions-text-muted: #b0bec5;
   --solutions-text-subtle: #90a4ae;
   --solutions-accent: var(--leaf-400);
+
+  --nasa-section-bg: #060c10;
+  --immersive-bg: #030608;
+  --immersive-canvas: #030608;
+  --immersive-fog: #030608;
+  --immersive-fallback-mid: #1a3340;
+  --immersive-fallback-outer: #030608;
+  --immersive-overlay-outer: rgba(3, 6, 8, 0.45);
+  --immersive-vignette-outer: rgba(3, 6, 8, 0.5);
+  --immersive-fact-bg: rgba(3, 6, 8, 0.62);
+  --immersive-fact-border: rgba(176, 190, 197, 0.22);
+  --immersive-fact-border-active: rgba(129, 199, 132, 0.5);
 }

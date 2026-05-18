@@ -1,18 +1,12 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { useRef, useState } from "react";
+import { LazyPlanetCanvas } from "@/components/planet/LazyPlanetCanvas";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { useGSAP } from "@/hooks/useGSAP";
 import { Container } from "@/components/layout/Container";
 import { ScrollHint } from "@/components/sections/hero/ScrollHint";
 import { PAGE_CONTAINER } from "@/lib/constants";
-
-const PlanetCanvas = dynamic(
-  () =>
-    import("@/components/three/planet/PlanetCanvas").then((m) => m.PlanetCanvas),
-  { ssr: false },
-);
 
 const HEADLINE_LINES = ["The planet", "is changing faster", "than we are."];
 
@@ -93,7 +87,7 @@ export function HeroSection() {
       className="hero-immersive"
       aria-labelledby="hero-heading"
     >
-      <PlanetCanvas
+      <LazyPlanetCanvas
         scrollProgress={planetProgress}
         enableIntro={false}
         showStars

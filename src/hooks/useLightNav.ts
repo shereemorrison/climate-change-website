@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTheme } from "@/hooks/useTheme";
 
-/** Light nav text over dark cinematic surfaces (hero + pinned earth). */
+/** Light nav text over dark cinematic surfaces (hero; earth & NASA only in dark theme). */
 export function useLightNav(): boolean {
+  const { theme } = useTheme();
   const [useLight, setUseLight] = useState(true);
 
   useEffect(() => {
@@ -17,13 +19,16 @@ export function useLightNav(): boolean {
         return;
       }
 
-      const earth = document.getElementById("earth");
-      if (earth) {
-        const rect = earth.getBoundingClientRect();
-        const inEarth = rect.top < vh * 0.15 && rect.bottom > vh * 0.35;
-        if (inEarth) {
-          setUseLight(true);
-          return;
+      if (theme === "dark") {
+        for (const id of ["earth", "nasa"]) {
+          const el = document.getElementById(id);
+          if (!el) continue;
+          const rect = el.getBoundingClientRect();
+          const inView = rect.top < vh * 0.15 && rect.bottom > vh * 0.35;
+          if (inView) {
+            setUseLight(true);
+            return;
+          }
         }
       }
 
@@ -37,7 +42,7 @@ export function useLightNav(): boolean {
       window.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
     };
-  }, []);
+  }, [theme]);
 
   return useLight;
 }
