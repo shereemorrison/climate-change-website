@@ -1,0 +1,189 @@
+/* Pinned scroll: dive into the globe after Impact */
+
+.earth-dive {
+  position: relative;
+  z-index: 12;
+  width: 100%;
+  background: transparent !important;
+}
+
+.earth-dive__pin {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Globe sits at z-index 14 during dive; overlays stack above it */
+.scrolling-earth.scrolling-earth--dive-bg {
+  z-index: 14;
+}
+
+.earth-dive__vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 16;
+  opacity: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 62% 58% at 50% 48%,
+    transparent 0%,
+    color-mix(in srgb, var(--color-bg) 35%, transparent) 58%,
+    color-mix(in srgb, var(--color-bg) 92%, transparent) 100%
+  );
+}
+
+.earth-dive__scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 17;
+  opacity: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 90% 80% at 50% 50%,
+      color-mix(in srgb, var(--color-bg) 72%, transparent) 0%,
+      color-mix(in srgb, var(--color-bg) 48%, transparent) 55%,
+      transparent 78%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-bg) 55%, transparent) 0%,
+      transparent 22%,
+      transparent 72%,
+      color-mix(in srgb, var(--color-bg) 62%, transparent) 100%
+    );
+}
+
+.earth-dive__atmosphere {
+  position: fixed;
+  inset: 0;
+  z-index: 15;
+  opacity: 0.2;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 50% 45%,
+    color-mix(in srgb, var(--color-accent) 14%, transparent) 0%,
+    transparent 58%
+  );
+}
+
+/* Title + facts — column layout; facts sit below the heading */
+.earth-dive__content {
+  position: fixed;
+  inset: 0;
+  z-index: 26;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: clamp(9vh, 12%, 16%) 1.25rem clamp(2rem, 5vh, 3.5rem);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.earth-dive__header {
+  position: relative;
+  flex-shrink: 0;
+  z-index: 2;
+  opacity: 1;
+  text-align: center;
+  padding-inline: 0.25rem;
+  margin-bottom: clamp(1.25rem, 3vh, 2rem);
+  pointer-events: none;
+}
+
+.earth-dive__eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  margin-bottom: 0.75rem;
+  text-shadow: 0 1px 10px color-mix(in srgb, var(--color-bg) 85%, transparent);
+}
+
+.earth-dive__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  font-size: clamp(2rem, 5.5vw, 3.75rem);
+  line-height: 1.05;
+  text-transform: uppercase;
+  color: var(--color-text);
+  max-width: 16ch;
+  margin-inline: auto;
+  text-shadow:
+    0 2px 24px color-mix(in srgb, var(--color-bg) 90%, transparent),
+    0 1px 4px color-mix(in srgb, var(--color-bg) 70%, transparent);
+}
+
+.earth-dive__facts {
+  position: relative;
+  flex: 1;
+  min-height: min(52vh, 28rem);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.earth-dive__facts .earth-fact {
+  position: absolute;
+  left: var(--fact-x);
+  top: var(--fact-y);
+  width: min(12rem, 30vw);
+  max-width: 13rem;
+  padding: 0.75rem 0.95rem;
+  border-radius: 0.75rem;
+  background: color-mix(in srgb, var(--color-bg) 96%, var(--color-surface));
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  border: 1px solid color-mix(in srgb, var(--color-text) 14%, var(--color-border));
+  box-shadow:
+    0 4px 24px color-mix(in srgb, var(--color-bg) 55%, transparent),
+    0 1px 0 color-mix(in srgb, #fff 40%, transparent) inset;
+  will-change: transform, opacity, filter;
+  transform-origin: center center;
+}
+
+.earth-dive__facts .earth-fact--visible {
+  border-color: color-mix(in srgb, var(--color-accent) 55%, var(--color-border));
+  box-shadow:
+    0 6px 28px color-mix(in srgb, var(--color-bg) 60%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--color-accent) 18%, transparent);
+}
+
+.earth-dive__facts .earth-fact__value {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+  margin-bottom: 0.35rem;
+  text-shadow: 0 1px 8px color-mix(in srgb, var(--color-bg) 75%, transparent);
+}
+
+.earth-dive__facts .earth-fact__label {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--color-text);
+  text-shadow: 0 1px 6px color-mix(in srgb, var(--color-bg) 70%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .earth-dive__pin {
+    min-height: 70vh;
+  }
+
+  .earth-dive__content,
+  .earth-dive__vignette,
+  .earth-dive__scrim {
+    position: absolute;
+  }
+}

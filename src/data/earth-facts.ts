@@ -1,16 +1,20 @@
 export type EarthFactAlign = "start" | "center" | "end";
 
+export type EarthFactVariant = "zoom" | "fall";
+
 export type EarthFact = {
   id: string;
   value: string;
   label: string;
-  /*Show when scroll progress passes this threshold (0–1) */
+  /** Show when scroll progress passes this threshold (0–1) */
   at: number;
-  /* Horizontal position within the scatter area (0–100%) */
+  /** Horizontal position within the scatter area (0–100%) */
   x: number;
-  /* Vertical position within the scatter area (0–100%) */
+  /** Vertical position within the scatter area (0–100%) */
   y: number;
   align: EarthFactAlign;
+  /** zoom = scale in from depth; fall = drop from above */
+  variant: EarthFactVariant;
 };
 
 export const earthFacts: EarthFact[] = [
@@ -22,6 +26,7 @@ export const earthFacts: EarthFact[] = [
     x: 4,
     y: 14,
     align: "start",
+    variant: "zoom",
   },
   {
     id: "freshwater",
@@ -31,6 +36,7 @@ export const earthFacts: EarthFact[] = [
     x: 88,
     y: 10,
     align: "end",
+    variant: "fall",
   },
   {
     id: "biosphere",
@@ -40,6 +46,7 @@ export const earthFacts: EarthFact[] = [
     x: 34,
     y: 6,
     align: "center",
+    variant: "zoom",
   },
   {
     id: "population",
@@ -49,6 +56,7 @@ export const earthFacts: EarthFact[] = [
     x: 6,
     y: 38,
     align: "start",
+    variant: "fall",
   },
   {
     id: "co2",
@@ -58,6 +66,7 @@ export const earthFacts: EarthFact[] = [
     x: 72,
     y: 28,
     align: "end",
+    variant: "zoom",
   },
   {
     id: "atmosphere-depth",
@@ -67,6 +76,7 @@ export const earthFacts: EarthFact[] = [
     x: 52,
     y: 22,
     align: "center",
+    variant: "fall",
   },
   {
     id: "warming",
@@ -76,6 +86,7 @@ export const earthFacts: EarthFact[] = [
     x: 10,
     y: 58,
     align: "start",
+    variant: "zoom",
   },
   {
     id: "coral",
@@ -85,6 +96,7 @@ export const earthFacts: EarthFact[] = [
     x: 78,
     y: 48,
     align: "end",
+    variant: "fall",
   },
   {
     id: "ocean-heat",
@@ -94,6 +106,7 @@ export const earthFacts: EarthFact[] = [
     x: 44,
     y: 44,
     align: "center",
+    variant: "zoom",
   },
   {
     id: "wildfire",
@@ -103,6 +116,7 @@ export const earthFacts: EarthFact[] = [
     x: 62,
     y: 62,
     align: "end",
+    variant: "fall",
   },
   {
     id: "sea-level",
@@ -112,6 +126,7 @@ export const earthFacts: EarthFact[] = [
     x: 22,
     y: 72,
     align: "start",
+    variant: "zoom",
   },
   {
     id: "ice-loss",
@@ -121,6 +136,7 @@ export const earthFacts: EarthFact[] = [
     x: 84,
     y: 70,
     align: "end",
+    variant: "fall",
   },
   {
     id: "species",
@@ -130,6 +146,7 @@ export const earthFacts: EarthFact[] = [
     x: 8,
     y: 84,
     align: "start",
+    variant: "zoom",
   },
   {
     id: "decade",
@@ -139,5 +156,6 @@ export const earthFacts: EarthFact[] = [
     x: 54,
     y: 80,
     align: "center",
+    variant: "fall",
   },
 ];

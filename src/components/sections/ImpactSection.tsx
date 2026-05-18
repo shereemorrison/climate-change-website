@@ -5,12 +5,16 @@ import { gsap } from "@/lib/gsap";
 import { useGSAP } from "@/hooks/useGSAP";
 import { Container } from "@/components/layout/Container";
 import { PAGE_CONTAINER } from "@/lib/constants";
+import { TextSplit } from "@/components/typography/TextSplit";
 import { impactItems } from "@/data/impact";
+import { useTextReveal } from "@/hooks/useTextReveal";
 import { GSAP_EASE, STAGGER } from "@/lib/motion";
 import { cn } from "@/utils/cn";
 
 export function ImpactSection() {
   const sectionRef = useRef<HTMLElement>(null);
+
+  useTextReveal(sectionRef);
 
   useGSAP(
     () => {
@@ -44,15 +48,22 @@ export function ImpactSection() {
     <section
       ref={sectionRef}
       id="impact"
-      className="impact-section"
+      className="impact-section journey-section journey-section--content-left"
+      data-earth-anchor="center"
+      data-earth-scale="0.65"
+      data-earth-y="54"
       aria-labelledby="impact-heading"
     >
       <Container width={PAGE_CONTAINER}>
         <header className="impact-section__header">
-          <p className="impact-section__eyebrow">What changes</p>
-          <h2 id="impact-heading" className="impact-section__title">
-            The cost is measured in places, not percentages
-          </h2>
+          <p className="impact-section__eyebrow" data-text-reveal>
+            What changes
+          </p>
+          <TextSplit
+            id="impact-heading"
+            lines={["The cost is measured", "in places, not percentages"]}
+            className="impact-section__title"
+          />
         </header>
 
         <div className="impact-section__grid" data-impact-grid>

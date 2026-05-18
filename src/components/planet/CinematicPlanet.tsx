@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type MutableRefObject } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Float, useTexture } from "@react-three/drei";
 import { gsap } from "@/lib/gsap";
@@ -18,17 +18,22 @@ import { AdditiveBlending, BackSide } from "three";
 type CinematicPlanetProps = {
   scale?: number;
   scrollProgress?: number;
+  scrollProgressRef?: MutableRefObject<number>;
   enableIntro?: boolean;
   scrollTurns?: number;
   idleSpeed?: number;
+  /** Upright framing for scroll overlay */
+  centered?: boolean;
 };
 
 export function CinematicPlanet({
   scale = 1,
   scrollProgress = 0,
+  scrollProgressRef,
   enableIntro = true,
   scrollTurns = PLANET_ROTATION.scrollTurns,
   idleSpeed = PLANET_ROTATION.idleSpeed,
+  centered = false,
 }: CinematicPlanetProps) {
   const rootRef = useRef<Group>(null);
   const earthRef = useRef<Group>(null);
@@ -59,12 +64,17 @@ export function CinematicPlanet({
 
   useFrame((state) => {
     if (!earthRef.current) return;
-    const scrollY = scrollProgress * Math.PI * 2 * scrollTurns;
+    const progress = scrollProgressRef?.current ?? scrollProgress;
+    const scrollY = progress * Math.PI * 2 * scrollTurns;
     earthRef.current.rotation.y = scrollY + state.clock.elapsedTime * idleSpeed;
   });
 
   return (
-    <group ref={rootRef} scale={scale} rotation={[-0.22, 0.28, 0]}>
+    <group
+      ref={rootRef}
+      scale={scale}
+      rotation={centered ? [-0.12, 0.35, 0] : [-0.22, 0.28, 0]}
+    >
       <Float speed={1.2} rotationIntensity={0.25} floatIntensity={0.4}>
         <group ref={earthRef}>
           <mesh>

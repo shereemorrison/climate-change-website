@@ -10,4 +10,4 @@ export const CONTAINER_WIDTH = {
 } as const;
 
 /** Primary content rail — use for header, sections, and footer so edges align. */
-export const PAGE_CONTAINER = "wide" as const;
+export const PAGE_CONTAINER = "full" as const;

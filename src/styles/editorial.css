@@ -9,6 +9,10 @@
   background: var(--gradient-editorial);
 }
 
+.journey-section.story-section {
+  background: transparent !important;
+}
+
 .story-section__grid {
   display: grid;
   gap: clamp(2rem, 5vw, 3.5rem);

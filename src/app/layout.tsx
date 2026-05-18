@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { Newsreader, Source_Sans_3 } from "next/font/google";
 import { RootProviders } from "@/components/layout/RootProviders";
 import { ThemeScript } from "@/components/layout/ThemeScript";
@@ -10,10 +11,11 @@ import "@/styles/typography.css";
 import "@/styles/motion.css";
 import "@/styles/atmosphere.css";
 import "@/styles/hero.css";
+import "@/styles/hero-atmosphere.css";
+import "@/styles/earth-journey.css";
+import "@/styles/earth-dive.css";
 import "@/styles/chapters-content.css";
-import "@/styles/earth.css";
 import "@/styles/editorial.css";
-import "@/styles/data-sections.css";
 import "@/styles/solutions.css";
 import "@/styles/marquee.css";
 
@@ -56,6 +58,7 @@ export default function RootLayout({
           Skip to main content
         </a>
         <RootProviders>{children}</RootProviders>
+        <Analytics />
       </body>
     </html>
   );

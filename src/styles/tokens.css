@@ -1,4 +1,4 @@
-/* ─── Brand palette (from Oroeeeo-inspired reference) ─── */
+
 :root {
   --leaf-400: #81c784;
   --leaf-500: #66bb6a;
@@ -87,7 +87,7 @@
   --solutions-text-subtle: #6b8074;
   --solutions-accent: #2e7d32;
 
-  /* Immersive sections (One planet, NASA) */
+  /* NASA immersive section */
   --nasa-section-bg: var(--color-bg-muted);
   --immersive-bg: #eef4f1;
   --immersive-canvas: #e4ebe6;

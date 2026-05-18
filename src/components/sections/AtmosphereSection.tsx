@@ -5,11 +5,15 @@ import { gsap } from "@/lib/gsap";
 import { useGSAP } from "@/hooks/useGSAP";
 import { Container } from "@/components/layout/Container";
 import { PAGE_CONTAINER } from "@/lib/constants";
+import { TextSplit } from "@/components/typography/TextSplit";
 import { atmosphereLayers, atmosphereNarrative } from "@/data/atmosphere";
+import { useTextReveal } from "@/hooks/useTextReveal";
 import { GSAP_EASE, STAGGER } from "@/lib/motion";
 
 export function AtmosphereSection() {
   const sectionRef = useRef<HTMLElement>(null);
+
+  useTextReveal(sectionRef);
 
   useGSAP(
     () => {
@@ -17,25 +21,7 @@ export function AtmosphereSection() {
       if (!section) return;
 
       const layers = section.querySelectorAll("[data-atmo-layer]");
-      const reveal = section.querySelectorAll("[data-atmo-reveal]");
       const glow = section.querySelector("[data-atmo-glow]");
-
-      gsap.fromTo(
-        reveal,
-        { y: 32, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.95,
-          stagger: STAGGER.base,
-          ease: GSAP_EASE.cinematic,
-          scrollTrigger: {
-            trigger: section.querySelector(".atmo-section__lead"),
-            start: "top 78%",
-            toggleActions: "play none none none",
-          },
-        },
-      );
 
       gsap.fromTo(
         layers,
@@ -74,7 +60,10 @@ export function AtmosphereSection() {
     <section
       ref={sectionRef}
       id="atmosphere"
-      className="atmo-section"
+      className="atmo-section journey-section journey-section--content-left"
+      data-earth-anchor="center"
+      data-earth-scale="0.82"
+      data-earth-y="40"
       aria-labelledby="atmo-heading"
     >
       <div className="atmo-section__glow" data-atmo-glow aria-hidden />
@@ -83,20 +72,26 @@ export function AtmosphereSection() {
       <Container width={PAGE_CONTAINER}>
         <div className="atmo-section__grid">
           <header className="atmo-section__lead">
-            <p className="atmo-section__eyebrow" data-atmo-reveal>
+            <p className="atmo-section__eyebrow" data-text-reveal>
               The thinning veil
             </p>
-            <h2 id="atmo-heading" className="atmo-section__title" data-atmo-reveal>
-              We live inside a fragile envelope of air and water
-            </h2>
+            <TextSplit
+              id="atmo-heading"
+              lines={["We live inside a fragile", "envelope of air and water"]}
+              className="atmo-section__title"
+            />
 
             <div className="atmo-section__body">
-              <p className="atmo-section__lede" data-atmo-reveal>
+              <p className="atmo-section__lede" data-text-scrub>
                 {atmosphereNarrative.lede}
               </p>
 
               {atmosphereNarrative.paragraphs.map((paragraph) => (
-                <p key={paragraph.slice(0, 40)} className="atmo-section__paragraph" data-atmo-reveal>
+                <p
+                  key={paragraph.slice(0, 40)}
+                  className="atmo-section__paragraph"
+                  data-text-reveal
+                >
                   {paragraph}
                 </p>
               ))}

@@ -2,8 +2,10 @@
 
 .solutions-section {
   position: relative;
-  background: var(--solutions-bg);
+  background: transparent !important;
   overflow: hidden;
+  /* Pull up so “What we can do” follows the dive without a long empty globe */
+  margin-top: min(-22vh, -9rem);
 }
 
 .solutions-section__glow {
@@ -19,7 +21,7 @@
   position: relative;
   z-index: 1;
   max-width: 40rem;
-  padding-top: clamp(3rem, 8vh, 5rem);
+  padding-top: clamp(1.25rem, 3vh, 2rem);
   padding-bottom: clamp(2rem, 5vh, 3rem);
 }
 
