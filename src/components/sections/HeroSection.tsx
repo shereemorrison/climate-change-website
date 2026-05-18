@@ -1,75 +1,135 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { MotionFade } from "@/components/animations/MotionFade";
+import { useRef, useState } from "react";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { useGSAP } from "@/hooks/useGSAP";
 import { Container } from "@/components/layout/Container";
-import { Button } from "@/components/ui/Button";
-import { Heading } from "@/components/typography/Heading";
-import { Text } from "@/components/typography/Text";
+import { ScrollHint } from "@/components/sections/hero/ScrollHint";
 import { PAGE_CONTAINER } from "@/lib/constants";
 
-const HeroGlobe = dynamic(
-  () => import("@/components/three/HeroGlobe").then((mod) => mod.HeroGlobe),
-  {
-    ssr: false,
-    loading: () => (
-      <div
-        className="h-full min-h-[280px] w-full animate-pulse rounded-2xl bg-[var(--color-bg-muted)]/40 sm:min-h-[320px]"
-        aria-hidden
-      />
-    ),
-  },
+const PlanetCanvas = dynamic(
+  () =>
+    import("@/components/three/planet/PlanetCanvas").then((m) => m.PlanetCanvas),
+  { ssr: false },
 );
 
+const HEADLINE_LINES = ["The planet", "is changing faster", "than we are."];
+
 export function HeroSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [planetProgress, setPlanetProgress] = useState(0);
+
+  useGSAP(
+    () => {
+      if (!sectionRef.current || !contentRef.current) return;
+
+      const eyebrow = contentRef.current.querySelector("[data-hero-eyebrow]");
+      const headlineInners = contentRef.current.querySelectorAll("[data-hero-headline]");
+      const subline = contentRef.current.querySelector("[data-hero-subline]");
+      const scrollHint = sectionRef.current.querySelector("[data-hero-scroll]");
+
+      const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+      intro.fromTo(sectionRef.current, { opacity: 0 }, { opacity: 1, duration: 0.6 }, 0);
+
+      if (eyebrow) {
+        intro.fromTo(eyebrow, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1 }, 0.35);
+      }
+
+      intro.fromTo(
+        headlineInners,
+        { yPercent: 120, opacity: 0 },
+        { yPercent: 0, opacity: 1, duration: 1.35, stagger: 0.12 },
+        0.5,
+      );
+
+      if (subline) {
+        intro.fromTo(subline, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1 }, 1);
+      }
+
+      if (scrollHint) {
+        intro.fromTo(scrollHint, { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9 }, 1.25);
+      }
+
+      gsap.to(contentRef.current, {
+        y: 80,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: 1.2,
+        },
+      });
+
+      gsap.to(contentRef.current, {
+        opacity: 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "55% top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top top",
+        end: "bottom top",
+        scrub: 1,
+        onUpdate: (self) => setPlanetProgress(self.progress),
+      });
+    },
+    { scope: sectionRef },
+  );
+
   return (
     <section
+      ref={sectionRef}
       id="hero"
-      className="relative flex min-h-[calc(100vh-4rem)] items-center pt-16"
+      className="hero-immersive"
       aria-labelledby="hero-heading"
     >
-      <Container
-        width={PAGE_CONTAINER}
-        className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16 xl:gap-20"
-      >
-        <div className="flex max-w-2xl flex-col gap-6 sm:gap-8">
-          <MotionFade>
-            <Heading id="hero-heading" level={1}>
-              The atmosphere remembers every choice we make
-            </Heading>
-          </MotionFade>
-          <MotionFade delay={0.1}>
-            <Text size="lg" muted>
-              An immersive editorial journey through the signals of a changing planet —
-              measured in data, felt in landscapes, understood through time.
-            </Text>
-          </MotionFade>
-          <MotionFade delay={0.2}>
-            <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-              <Button
-                variant="primary"
-                onClick={() =>
-                  document.getElementById("data")?.scrollIntoView({ behavior: "smooth" })
-                }
-              >
-                Explore the data
-              </Button>
-              <Button variant="outline">About this project</Button>
-            </div>
-          </MotionFade>
-        </div>
-        <MotionFade
-          delay={0.1}
-          direction="none"
-          className="relative mx-auto aspect-square w-full max-w-md lg:max-h-[min(70vh,520px)] lg:max-w-none"
-        >
-          <HeroGlobe />
-        </MotionFade>
-      </Container>
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-[image:var(--gradient-horizon)]"
+      <PlanetCanvas
+        scrollProgress={planetProgress}
+        enableIntro={false}
+        showStars
+        planetScale={1.05}
+        cameraZ={6.6}
+        cameraX={0.35}
+        scrollTurns={1.15}
+        idleSpeed={0.022}
+        className="hero-immersive__canvas"
       />
+
+      <div className="hero-immersive__overlay" aria-hidden />
+
+      <Container width={PAGE_CONTAINER} className="hero-immersive__content">
+        <div ref={contentRef}>
+          <p className="hero-immersive__eyebrow" data-hero-eyebrow>
+            Atlas of Change
+          </p>
+
+          <h1 id="hero-heading" className="hero-immersive__headline">
+            {HEADLINE_LINES.map((line) => (
+              <span key={line} className="hero-immersive__headline-line">
+                <span className="hero-immersive__headline-inner" data-hero-headline>
+                  {line}
+                </span>
+              </span>
+            ))}
+          </h1>
+
+          <p className="hero-immersive__subline" data-hero-subline>
+            A cinematic journey through the signals of a warming world.
+          </p>
+        </div>
+      </Container>
+
+      <ScrollHint className="hero-immersive__scroll-hint" />
     </section>
   );
 }

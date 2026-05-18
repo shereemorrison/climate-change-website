@@ -8,7 +8,13 @@ import "./globals.css";
 import "@/styles/tokens.css";
 import "@/styles/typography.css";
 import "@/styles/motion.css";
-import "@/styles/sections.css";
+import "@/styles/atmosphere.css";
+import "@/styles/hero.css";
+import "@/styles/chapters-content.css";
+import "@/styles/earth.css";
+import "@/styles/editorial.css";
+import "@/styles/solutions.css";
+import "@/styles/marquee.css";
 
 const displayFont = Newsreader({
   variable: "--font-display",

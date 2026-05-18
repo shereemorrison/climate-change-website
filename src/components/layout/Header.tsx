@@ -3,31 +3,56 @@
 import { HiOutlineMoon, HiOutlineSun } from "react-icons/hi2";
 import { Container } from "@/components/layout/Container";
 import { useTheme } from "@/hooks/useTheme";
+import { useScrolled } from "@/hooks/useScrolled";
+import { useLightNav } from "@/hooks/useLightNav";
 import { cn } from "@/utils/cn";
-import { PAGE_CONTAINER, SITE_NAME } from "@/lib/constants";
+import { PAGE_CONTAINER } from "@/lib/constants";
 
 export function Header() {
   const { theme, toggleTheme, mounted } = useTheme();
+  const scrolled = useScrolled(32);
+  const onDarkSurface = useLightNav();
+  const lightNav = onDarkSurface && !scrolled;
 
   return (
-    <header className="fixed top-0 right-0 left-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg-elevated)]/85 backdrop-blur-md">
+    <header
+      className={cn(
+        "navbar-floating fixed top-0 right-0 left-0 z-50 border-b",
+        scrolled ? "navbar-floating--scrolled" : "navbar-floating--top",
+        lightNav && "navbar-floating--hero",
+      )}
+    >
       <Container
         width={PAGE_CONTAINER}
-        className="grid h-16 grid-cols-[1fr_auto_1fr] items-center gap-4"
+        className="grid h-[4.25rem] grid-cols-[1fr_auto_1fr] items-center gap-4"
       >
         <a
           href="#hero"
-          className="justify-self-start text-caption text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)]"
+          className={cn(
+            "justify-self-start text-caption transition-colors",
+            lightNav
+              ? "text-white/70 hover:text-white"
+              : "text-[var(--color-text-muted)] hover:text-[var(--color-text)]",
+          )}
         >
-          {SITE_NAME}
+          Home
         </a>
         <nav
           aria-label="Primary"
-          className="hidden items-center justify-center gap-8 md:flex"
+          className="hidden items-center justify-center gap-6 lg:gap-8 md:flex"
         >
-          <NavLink href="#data">Data</NavLink>
-          <NavLink href="#atmosphere">Atmosphere</NavLink>
-          <NavLink href="#impact">Impact</NavLink>
+          <NavLink href="#story" light={lightNav}>
+            Story
+          </NavLink>
+          <NavLink href="#impact" light={lightNav}>
+            Impact
+          </NavLink>
+          <NavLink href="#earth" light={lightNav}>
+            Earth
+          </NavLink>
+          <NavLink href="#solutions" light={lightNav}>
+            Solutions
+          </NavLink>
         </nav>
         <button
           type="button"
@@ -40,6 +65,10 @@ export function Header() {
             "border border-[var(--color-border)] text-[var(--color-text-muted)]",
             "transition-colors hover:border-[var(--color-border-strong)] hover:text-[var(--color-text)]",
             "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)]",
+            !scrolled &&
+              (lightNav
+                ? "border-white/15 bg-white/10 text-white/80 backdrop-blur-sm hover:text-white"
+                : "border-transparent bg-[var(--color-surface)]/20 backdrop-blur-sm"),
           )}
         >
           {mounted && theme === "light" ? (
@@ -53,11 +82,24 @@ export function Header() {
   );
 }
 
-function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
+function NavLink({
+  href,
+  children,
+  light,
+}: {
+  href: string;
+  children: React.ReactNode;
+  light?: boolean;
+}) {
   return (
     <a
       href={href}
-      className="text-caption text-[var(--color-text-subtle)] transition-colors hover:text-[var(--color-text)]"
+      className={cn(
+        "text-caption transition-colors",
+        light
+          ? "text-white/60 hover:text-white"
+          : "text-[var(--color-text-subtle)] hover:text-[var(--color-text)]",
+      )}
     >
       {children}
     </a>

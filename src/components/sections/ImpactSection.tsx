@@ -1,53 +1,78 @@
 "use client";
 
-import { MotionFade } from "@/components/animations/MotionFade";
+import { useRef, type CSSProperties } from "react";
+import { gsap } from "@/lib/gsap";
+import { useGSAP } from "@/hooks/useGSAP";
 import { Container } from "@/components/layout/Container";
-import { Section } from "@/components/layout/Section";
-import { SectionIntro } from "@/components/layout/SectionIntro";
-import { Text } from "@/components/typography/Text";
 import { PAGE_CONTAINER } from "@/lib/constants";
-
-const impacts = [
-  {
-    title: "Coastal communities",
-    description:
-      "Rising seas reshape shorelines and infrastructure, with disproportionate effects on low-lying regions.",
-  },
-  {
-    title: "Ecosystems under stress",
-    description:
-      "Species migrate, forests burn more intensely, and coral reefs bleach as oceans absorb excess heat.",
-  },
-  {
-    title: "Human health",
-    description:
-      "Heatwaves, air quality, and shifting disease patterns connect climate change directly to wellbeing.",
-  },
-];
+import { impactItems } from "@/data/impact";
+import { GSAP_EASE, STAGGER } from "@/lib/motion";
+import { cn } from "@/utils/cn";
 
 export function ImpactSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      const section = sectionRef.current;
+      if (!section) return;
+
+      const cards = section.querySelectorAll("[data-impact-card]");
+
+      gsap.fromTo(
+        cards,
+        { y: 56, opacity: 0, rotateX: 8 },
+        {
+          y: 0,
+          opacity: 1,
+          rotateX: 0,
+          duration: 1.05,
+          stagger: STAGGER.base,
+          ease: GSAP_EASE.cinematic,
+          scrollTrigger: {
+            trigger: section.querySelector("[data-impact-grid]"),
+            start: "top 82%",
+            toggleActions: "play none none none",
+          },
+        },
+      );
+    },
+    { scope: sectionRef },
+  );
+
   return (
-    <Section id="impact" spacing="lg" atmosphere aria-label="Human impact">
+    <section
+      ref={sectionRef}
+      id="impact"
+      className="impact-section"
+      aria-labelledby="impact-heading"
+    >
       <Container width={PAGE_CONTAINER}>
-        <SectionIntro
-          eyebrow="What changes"
-          title="The cost is measured in places, not percentages"
-        />
-        <div className="grid gap-6 sm:gap-8 md:grid-cols-3">
-          {impacts.map((item, index) => (
-            <MotionFade key={item.title} delay={index * 0.1} className="h-full">
-              <article className="flex h-full flex-col gap-4 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 shadow-[var(--shadow-soft)] sm:p-8">
-                <h3 className="text-editorial text-2xl text-[var(--color-text)]">
-                  {item.title}
-                </h3>
-                <Text muted size="sm" className="flex-1">
-                  {item.description}
-                </Text>
-              </article>
-            </MotionFade>
+        <header className="impact-section__header">
+          <p className="impact-section__eyebrow">What changes</p>
+          <h2 id="impact-heading" className="impact-section__title">
+            The cost is measured in places, not percentages
+          </h2>
+        </header>
+
+        <div className="impact-section__grid" data-impact-grid>
+          {impactItems.map((item, index) => (
+            <article
+              key={item.id}
+              data-impact-card
+              className={cn("impact-card", `impact-card--${item.tone}`)}
+              style={{ "--impact-index": index } as CSSProperties}
+            >
+              <div className="impact-card__stat">
+                <span className="impact-card__stat-value">{item.stat}</span>
+                <span className="impact-card__stat-label">{item.statLabel}</span>
+              </div>
+              <h3 className="impact-card__title">{item.title}</h3>
+              <p className="impact-card__description">{item.description}</p>
+            </article>
           ))}
         </div>
       </Container>
-    </Section>
+    </section>
   );
 }

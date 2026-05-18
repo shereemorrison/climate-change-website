@@ -10,7 +10,7 @@ export function Footer() {
       >
         <p className="text-caption text-[var(--color-text-subtle)]">{SITE_NAME}</p>
         <p className="text-sm text-[var(--color-text-muted)]">
-          Data for demonstration. Built for cinematic climate storytelling.
+          Built for cinematic climate storytelling.
         </p>
       </Container>
     </footer>

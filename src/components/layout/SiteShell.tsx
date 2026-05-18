@@ -1,3 +1,4 @@
+import { GrainOverlay } from "@/components/atmosphere/GrainOverlay";
 import { cn } from "@/utils/cn";
 
 type SiteShellProps = {
@@ -5,7 +6,6 @@ type SiteShellProps = {
   className?: string;
 };
 
-/* Top-level page wrapper with atmospheric background layers. */
 export function SiteShell({ children, className }: SiteShellProps) {
   return (
     <div
@@ -14,14 +14,7 @@ export function SiteShell({ children, className }: SiteShellProps) {
         className,
       )}
     >
-      <div
-        aria-hidden
-        className="pointer-events-none fixed inset-0 z-0 bg-[image:var(--gradient-atmosphere)]"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none fixed inset-0 z-0 bg-[image:var(--gradient-fog)] opacity-80"
-      />
+      <GrainOverlay />
       <div className="relative z-10">{children}</div>
     </div>
   );

@@ -1,10 +1,31 @@
+import { ScrollMarquee } from "@/components/animations/ScrollMarquee";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { HeroSection } from "@/components/sections/HeroSection";
-import { DataSection } from "@/components/sections/DataSection";
+import { TemperatureStorySection } from "@/components/sections/TemperatureStorySection";
 import { AtmosphereSection } from "@/components/sections/AtmosphereSection";
 import { ImpactSection } from "@/components/sections/ImpactSection";
+import { EarthSection } from "@/components/sections/EarthSection";
+import { SolutionsSection } from "@/components/sections/SolutionsSection";
+
+const MARQUEE_SIGNALS = [
+  "Rising seas",
+  "Record heat",
+  "Ice loss",
+  "Wildfire",
+  "Drought",
+  "Ocean acidification",
+];
+
+const MARQUEE_HOPE = [
+  "Renewable energy",
+  "Restoration",
+  "Clean transport",
+  "Community action",
+  "Net zero",
+  "Regeneration",
+];
 
 export default function Home() {
   return (
@@ -12,9 +33,17 @@ export default function Home() {
       <Header />
       <main id="main-content">
         <HeroSection />
-        <DataSection />
+
+        <ScrollMarquee items={MARQUEE_SIGNALS} className="scroll-marquee--dark" />
+
+        <TemperatureStorySection />
+
         <AtmosphereSection />
         <ImpactSection />
+        <EarthSection />
+        <SolutionsSection />
+
+        <ScrollMarquee items={MARQUEE_HOPE} className="scroll-marquee--hope" />
       </main>
       <Footer />
     </SiteShell>

@@ -6,14 +6,12 @@ export type Theme = "light" | "dark";
 
 const STORAGE_KEY = "atlas-theme";
 const THEME_CHANGE = "atlas-theme-change";
-
-function getSystemTheme(): Theme {
-  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-}
+const DEFAULT_THEME: Theme = "light";
 
 function readTheme(): Theme {
+  if (typeof window === "undefined") return DEFAULT_THEME;
   const stored = localStorage.getItem(STORAGE_KEY) as Theme | null;
-  return stored ?? getSystemTheme();
+  return stored === "light" || stored === "dark" ? stored : DEFAULT_THEME;
 }
 
 function applyTheme(theme: Theme) {
@@ -21,24 +19,16 @@ function applyTheme(theme: Theme) {
 }
 
 function subscribe(onStoreChange: () => void) {
-  const onSystemChange = () => {
-    if (!localStorage.getItem(STORAGE_KEY)) onStoreChange();
-  };
-
   window.addEventListener(THEME_CHANGE, onStoreChange);
   window.addEventListener("storage", onStoreChange);
-  const mq = window.matchMedia("(prefers-color-scheme: dark)");
-  mq.addEventListener("change", onSystemChange);
-
   return () => {
     window.removeEventListener(THEME_CHANGE, onStoreChange);
     window.removeEventListener("storage", onStoreChange);
-    mq.removeEventListener("change", onSystemChange);
   };
 }
 
 function getServerSnapshot(): Theme {
-  return "light";
+  return DEFAULT_THEME;
 }
 
 export function useTheme() {
