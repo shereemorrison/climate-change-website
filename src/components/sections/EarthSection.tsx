@@ -1,18 +1,13 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { useMemo, useRef, type CSSProperties } from "react";
+import { LazyEarthPlanetCanvas } from "@/components/planet/LazyPlanetCanvas";
 import { Container } from "@/components/layout/Container";
 import { PAGE_CONTAINER } from "@/lib/constants";
 import { earthFacts } from "@/data/earth-facts";
 import { usePinnedScrollProgress } from "@/hooks/planet/usePinnedScrollProgress";
+import { useTheme } from "@/hooks/useTheme";
 import { cn } from "@/utils/cn";
-
-const PlanetCanvas = dynamic(
-  () =>
-    import("@/components/three/planet/PlanetCanvas").then((m) => m.PlanetCanvas),
-  { ssr: false, loading: () => <div className="earth-immersive__fallback" aria-hidden /> },
-);
 
 function factTransform(align: string, entrance: number): string {
   const x = align === "center" ? "-50%" : align === "end" ? "-100%" : "0";
@@ -22,6 +17,7 @@ function factTransform(align: string, entrance: number): string {
 export function EarthSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const pinRef = useRef<HTMLDivElement>(null);
+  const { theme } = useTheme();
   const progress = usePinnedScrollProgress(sectionRef, pinRef, "+=175%");
 
   const introOpacity = useMemo(() => Math.max(0, 1 - progress * 2.2), [progress]);
@@ -34,10 +30,11 @@ export function EarthSection() {
       aria-label="Earth from space"
     >
       <div ref={pinRef} className="earth-immersive__stage">
-        <PlanetCanvas
+        <LazyEarthPlanetCanvas
           scrollProgress={progress}
           enableIntro={false}
           showStars
+          tone={theme}
           planetScale={0.92}
           cameraZ={6.4}
           cameraX={0}

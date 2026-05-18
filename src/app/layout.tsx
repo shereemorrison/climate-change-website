@@ -13,6 +13,7 @@ import "@/styles/hero.css";
 import "@/styles/chapters-content.css";
 import "@/styles/earth.css";
 import "@/styles/editorial.css";
+import "@/styles/data-sections.css";
 import "@/styles/solutions.css";
 import "@/styles/marquee.css";
 

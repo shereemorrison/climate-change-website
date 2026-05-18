@@ -3,7 +3,8 @@
 import { useId, useMemo, useRef } from "react";
 import { gsap } from "@/lib/gsap";
 import { useGSAP } from "@/hooks/useGSAP";
-import { temperatureSeries } from "@/data/temperature-series";
+import { fallbackTemperatureSeries } from "@/lib/climate-api/fallbacks";
+import type { TemperaturePoint } from "@/lib/climate-api/types";
 import { cn } from "@/utils/cn";
 
 const WIDTH = 520;
@@ -12,17 +13,26 @@ const PAD = { top: 24, right: 20, bottom: 36, left: 44 };
 
 type TemperatureChartProps = {
   className?: string;
+  series?: TemperaturePoint[];
+  caption?: string;
+  loading?: boolean;
 };
 
-export function TemperatureChart({ className }: TemperatureChartProps) {
+export function TemperatureChart({
+  className,
+  series: seriesProp,
+  caption,
+  loading,
+}: TemperatureChartProps) {
   const rootRef = useRef<HTMLDivElement>(null);
-  const svgRef = useRef<SVGSVGElement>(null);
   const gradientId = useId();
 
+  const series = seriesProp?.length ? seriesProp : fallbackTemperatureSeries;
+
   const { path, area, labels } = useMemo(() => {
-    const data = temperatureSeries;
-    const minY = -0.25;
-    const maxY = 1.35;
+    const data = series;
+    const minY = Math.min(-0.25, ...data.map((p) => p.anomaly)) - 0.1;
+    const maxY = Math.max(1.35, ...data.map((p) => p.anomaly)) + 0.1;
     const minX = data[0].year;
     const maxX = data[data.length - 1].year;
 
@@ -39,18 +49,22 @@ export function TemperatureChart({ className }: TemperatureChartProps) {
 
     const areaPath = `${line} L ${x(maxX)} ${y(minY)} L ${x(minX)} ${y(minY)} Z`;
 
+    const labelYears = [
+      data[0].year,
+      data[Math.floor(data.length / 2)].year,
+      data[data.length - 1].year,
+    ];
+
     return {
       path: line,
       area: areaPath,
-      labels: [1980, 2000, 2023].map((year) => ({
-        year,
-        x: x(year),
-      })),
+      labels: [...new Set(labelYears)].map((year) => ({ year, x: x(year) })),
     };
-  }, []);
+  }, [series]);
 
   useGSAP(
     () => {
+      if (loading) return;
       const svg = rootRef.current?.querySelector("svg");
       if (!svg) return;
 
@@ -76,17 +90,24 @@ export function TemperatureChart({ className }: TemperatureChartProps) {
         "-=0.7",
       );
     },
-    { scope: rootRef },
+    { scope: rootRef, dependencies: [loading, series] },
   );
+
+  if (loading) {
+    return (
+      <div className={cn("temperature-chart", className)}>
+        <div className="data-section__skeleton data-section__skeleton--chart" aria-busy="true" />
+      </div>
+    );
+  }
 
   return (
     <div ref={rootRef} className={cn("temperature-chart", className)}>
       <svg
-        ref={svgRef}
         viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
         className="temperature-chart__svg"
         role="img"
-        aria-label="Global temperature anomaly rising from 1880 to 2023"
+        aria-label="Global temperature anomaly over time"
       >
         <defs>
           <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
@@ -128,7 +149,7 @@ export function TemperatureChart({ className }: TemperatureChartProps) {
         ))}
       </svg>
       <p className="temperature-chart__caption">
-        Global surface temperature anomaly (°C) · illustrative trend
+        {caption ?? "Global surface temperature anomaly (°C)"}
       </p>
     </div>
   );
