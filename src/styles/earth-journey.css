@@ -1,5 +1,10 @@
 /* Fixed Earth — atmospheric backdrop, behind all copy */
 
+.journey-main {
+  position: relative;
+  background: transparent;
+}
+
 .scrolling-earth {
   position: fixed;
   z-index: 2;
@@ -7,7 +12,7 @@
   top: 48%;
   width: min(72vw, 42rem);
   height: min(72vw, 42rem);
-  opacity: 0.58;
+  opacity: 0.55;
   pointer-events: none;
   will-change: left, top, width, height, opacity;
 }
@@ -78,4 +83,50 @@
 
 .text-split__inner {
   display: block;
+}
+
+/* Marquees between chapters — translucent so the globe stays visible */
+#main-content .scroll-marquee--journey {
+  position: relative;
+  z-index: 10;
+  background: color-mix(in srgb, var(--color-bg) 55%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+#main-content .scroll-marquee--signals.scroll-marquee--journey {
+  background: color-mix(in srgb, var(--color-bg-muted) 50%, transparent);
+}
+
+#main-content .scroll-marquee--hope.scroll-marquee--journey {
+  background: color-mix(in srgb, var(--solutions-bg) 52%, transparent);
+}
+
+@media (max-width: 767px) {
+  .scrolling-earth {
+    left: 50%;
+    width: min(88vw, 22rem);
+    height: min(88vw, 22rem);
+  }
+
+  .hero-immersive__overlay {
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-bg) 94%, transparent) 0%,
+      color-mix(in srgb, var(--color-bg) 50%, transparent) 38%,
+      transparent 62%
+    );
+  }
+
+  .hero-atmosphere__wash {
+    mask-image: linear-gradient(180deg, black 0%, transparent 58%);
+  }
+
+  .story-section__grid {
+    padding-block: clamp(2.5rem, 8vh, 4rem);
+  }
+
+  #main-content .scroll-marquee__item {
+    font-size: clamp(1.15rem, 5.5vw, 1.5rem);
+  }
 }

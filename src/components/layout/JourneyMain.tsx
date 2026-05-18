@@ -34,7 +34,7 @@ export function JourneyMain({ children }: JourneyMainProps) {
         cameraZRef={cameraZRef}
         diveProgressRef={diveProgressRef}
       />
-      <main ref={mainRef} id="main-content">
+      <main ref={mainRef} id="main-content" className="journey-main">
         {children}
       </main>
     </JourneyRefContext.Provider>
