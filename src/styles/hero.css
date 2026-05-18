@@ -25,13 +25,13 @@
 
 .hero-immersive__content {
   position: relative;
-  z-index: 21;
+  z-index: 2;
   display: flex;
   min-height: min(88vh, 54rem);
   min-height: min(88dvh, 54rem);
   flex-direction: column;
   justify-content: flex-end;
-  padding-top: clamp(5rem, 10vh, 6.5rem);
+  padding-top: clamp(4.5rem, 8vh, 6rem);
   padding-bottom: clamp(3rem, 9vh, 5rem);
 }
 

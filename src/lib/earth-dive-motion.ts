@@ -3,13 +3,16 @@ import { getFactMotion, type FactMotion } from "@/lib/earth-motion";
 
 /* Dive scroll phases (0–1) */
 export const DIVE_PHASE = {
-  settleEnd: 0.07,
-  zoomInEnd: 0.36,
-  factsStart: 0.36,
-  factsEnd: 0.54,
-  zoomOutStart: 0.54,
-  zoomOutEnd: 0.72,
+  settleEnd: 0.06,
+  zoomInEnd: 0.34,
+  factsStart: 0.34,
+  factsEnd: 0.5,
+  zoomOutStart: 0.5,
+  zoomOutEnd: 0.94,
 } as const;
+
+/** Pin scroll length — keep the post-zoom “earth only” tail short */
+export const DIVE_PIN_SCROLL = "+=108%";
 
 export type DiveEarthHandoff = {
   x: number;

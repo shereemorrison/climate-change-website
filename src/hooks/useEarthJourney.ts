@@ -17,8 +17,9 @@ const ANCHOR_X: Record<EarthAnchor, number> = {
   right: 0.78,
 };
 
+/* Match the steady solutions-section backdrop — subtle behind copy */
 const BASE_OPACITY = 0.52;
-const HERO_OPACITY = 0.68;
+const HERO_OPACITY = 0.58;
 const SCALE_REFERENCE = 1.05;
 const DEFAULT_CAMERA_Z = 8;
 const DIVE_CAMERA_Z = 3.35;
@@ -36,7 +37,7 @@ function adjustWaypoint(wp: Waypoint): Waypoint {
   return {
     x: lerp(wp.x, 50, 0.42),
     y: wp.y,
-    scale: Math.min(wp.scale * 1.06, 1.14),
+    scale: Math.min(wp.scale * 1.14, 1.22),
   };
 }
 

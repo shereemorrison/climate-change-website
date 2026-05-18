@@ -76,3 +76,10 @@
 .navbar-floating--hero.navbar-floating--top {
   border-color: transparent;
 }
+
+/* Light editorial hero — dark nav text on transparent bar */
+.navbar-floating--top:not(.navbar-floating--hero) {
+  border-color: color-mix(in srgb, var(--color-border) 65%, transparent);
+  background-color: color-mix(in srgb, var(--color-bg) 72%, transparent);
+  backdrop-filter: blur(10px);
+}

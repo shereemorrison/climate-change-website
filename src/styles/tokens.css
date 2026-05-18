@@ -65,6 +65,12 @@
   --shadow-elevated: 0 12px 40px -8px rgba(27, 58, 75, 0.14);
   --shadow-brand: 0 8px 28px -6px rgba(76, 175, 80, 0.35);
 
+  /* Frosted tiles — globe visible behind cards */
+  --tile-blur: 14px;
+  --tile-bg: color-mix(in srgb, var(--color-surface) 52%, transparent);
+  --tile-bg-strong: color-mix(in srgb, var(--color-surface) 64%, transparent);
+  --tile-border: color-mix(in srgb, var(--color-border) 85%, transparent);
+
   --color-focus: var(--leaf-600);
 
   /* Narrative surfaces (hero stays dark; body is light) */
@@ -150,6 +156,11 @@
   --shadow-soft: 0 4px 32px -4px rgba(0, 0, 0, 0.45);
   --shadow-elevated: 0 16px 56px -10px rgba(0, 0, 0, 0.55);
   --shadow-brand: 0 8px 32px -6px rgba(102, 187, 106, 0.25);
+
+  --tile-blur: 14px;
+  --tile-bg: color-mix(in srgb, var(--color-surface) 48%, transparent);
+  --tile-bg-strong: color-mix(in srgb, var(--color-surface) 58%, transparent);
+  --tile-border: color-mix(in srgb, var(--color-border) 90%, transparent);
 
   --color-focus: var(--leaf-400);
 

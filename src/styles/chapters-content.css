@@ -196,8 +196,10 @@
   padding: clamp(1.5rem, 3vw, 2rem);
   border-radius: 1.25rem;
   overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent);
-  background: var(--color-surface);
+  border: 1px solid var(--tile-border);
+  background: var(--tile-bg);
+  backdrop-filter: blur(var(--tile-blur));
+  -webkit-backdrop-filter: blur(var(--tile-blur));
   transition:
     transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
@@ -207,7 +209,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  opacity: 0.85;
+  opacity: 0.45;
   pointer-events: none;
   transition: opacity 0.45s ease;
 }

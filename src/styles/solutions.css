@@ -4,8 +4,13 @@
   position: relative;
   background: transparent !important;
   overflow: hidden;
-  /* Pull up so “What we can do” follows the dive without a long empty globe */
-  margin-top: min(-22vh, -9rem);
+  /* Overlap the dive pin tail — intro is revealed by scroll during zoom-out */
+  margin-top: min(-48vh, -18rem);
+}
+
+.solutions-section__intro,
+.solutions-section .solutions-grid {
+  will-change: transform, opacity;
 }
 
 .solutions-section__glow {
@@ -19,10 +24,10 @@
 
 .solutions-section__intro {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   max-width: 40rem;
-  padding-top: clamp(1.25rem, 3vh, 2rem);
-  padding-bottom: clamp(2rem, 5vh, 3rem);
+  padding-top: clamp(1.5rem, 4vh, 2.75rem);
+  padding-bottom: clamp(1.5rem, 4vh, 2.5rem);
 }
 
 .solutions-section__eyebrow {
@@ -77,9 +82,10 @@
   gap: 0.875rem;
   padding: 1.5rem;
   border-radius: 1.125rem;
-  border: 1px solid rgba(76, 175, 80, 0.15);
-  background: color-mix(in srgb, #ffffff 85%, var(--solutions-sky) 15%);
-  backdrop-filter: blur(10px);
+  border: 1px solid color-mix(in srgb, var(--solutions-accent) 18%, var(--tile-border));
+  background: color-mix(in srgb, var(--tile-bg) 88%, var(--solutions-sky) 12%);
+  backdrop-filter: blur(var(--tile-blur));
+  -webkit-backdrop-filter: blur(var(--tile-blur));
   box-shadow: 0 8px 32px -12px rgba(46, 125, 50, 0.12);
   transition:
     transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
