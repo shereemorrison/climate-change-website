@@ -18,10 +18,12 @@ import "@/styles/chapters-content.css";
 import "@/styles/editorial.css";
 import "@/styles/solutions.css";
 import "@/styles/marquee.css";
+import "@/styles/preloader.css";
 
 const displayFont = Newsreader({
   variable: "--font-display",
   subsets: ["latin"],
+  weight: ["400", "600"],
   display: "swap",
 });
 

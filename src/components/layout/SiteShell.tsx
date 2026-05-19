@@ -1,4 +1,3 @@
-import { GrainOverlay } from "@/components/atmosphere/GrainOverlay";
 import { cn } from "@/utils/cn";
 
 type SiteShellProps = {
@@ -14,7 +13,6 @@ export function SiteShell({ children, className }: SiteShellProps) {
         className,
       )}
     >
-      <GrainOverlay />
       <div className="relative">{children}</div>
     </div>
   );
